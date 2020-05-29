@@ -1,33 +1,39 @@
 //Selecteurs
 const Section = document.querySelector('section');
-const H1 = document.querySelector('h1');
+const Input = document.querySelector('input');
 const Retry = document.querySelector('i');
 
 //Déclaration
 BonjourFinal =""
 
-//Fonction random
-const getRandomInt = max => { return Math.floor(Math.random() * Math.floor(max)); }
+//Fonction pour mettre la première letre en majuscule
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
+const generateTab = () => {
+    let Mot = Input.value;
+    let MotTab = [];
+    for(let i = 0; i < Mot.length; i++){
+        MotTab.push(Mot[i].toLowerCase());
+    }
+    return MotTab;
+}
 
 //Fonction pour générer le bonjour, autorise les doublons
 const getJourBon = () => {
-    const start = ['b', 'o', 'n', 'j', 'o', 'u', 'r'];
+    const start = generateTab();
+    let longueur = start.length;
     const end = [];
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < longueur; i++) {
         const pos = Math.floor(Math.random() * start.length);
-        if(i == 0){
-            end.push(start[pos].toLocaleUpperCase());
-        }
-        else{
-            end.push(start[pos]);
-        }
+        end.push(start[pos]);
         start.splice(pos, 1);
     }
-    
-    console.log(end.join(""));
+
     BonjourFinal = end.join("");
+    BonjourFinal = capitalizeFirstLetter(BonjourFinal);
     updateClipboard(BonjourFinal);
 
     animateText();
@@ -47,9 +53,9 @@ const loop = () => {
     }, 300);
 }
 
-//Lance le générateur si on appuie sur espace
+//Lance le generateur si on appuie sur espace
 const keyPress = (e) => {
-    if (e.keyCode === 32){
+    if ((e.keyCode === 32 && !(Input === document.activeElement)) || e.keyCode === 13){
         getJourBon();
         loop();
     } 
@@ -59,12 +65,12 @@ const keyPress = (e) => {
 let Jourbon = "";
 let j = 0;
 
-//Fonction récursive permettant d'afficher le texte au fur et à mesure
+//Fonction recursive permettant d'afficher le texte au fur et a mesure
 const animateText = () => {
     setTimeout(() => {
         if(j < BonjourFinal.length){
             Jourbon += BonjourFinal[j];
-            H1.innerHTML = Jourbon;
+            Input.value = Jourbon;
             j++;
             animateText();
         }
@@ -95,7 +101,6 @@ navigator.permissions.query({name: "clipboard-write"}).then(result => {
       /* write to the clipboard now */
     }
 });
-
 
 function updateClipboard(newClip) {
     navigator.clipboard.writeText(newClip).then(function() {

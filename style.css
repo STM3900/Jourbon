@@ -15,9 +15,20 @@ section{
     transition: 0.3s;
 }
 
-section h1{
+section input{
+    font-family: 'Chelsea Market', cursive;
+    border: none;
+    background: none;
     font-size: 80px;
     color : #ffd166;
+    text-align: center;
+    
+    margin-bottom: 25px;
+}
+
+section input:focus{
+    box-shadow: none;
+    outline: none;
 }
 
 section i{
