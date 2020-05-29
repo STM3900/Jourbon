@@ -1,0 +1,46 @@
+body{
+    margin: 0;
+    height:  100vh;
+    background: #ef476f;
+    font-family: 'Chelsea Market', cursive;
+}
+
+section{
+    height:  100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    transition: 0.3s;
+}
+
+section h1{
+    font-size: 80px;
+    color : #ffd166;
+}
+
+section i{
+    font-size: 40px;
+    color : #ffd166;
+    transition: 0.3s;
+}
+
+section i:hover{
+    filter: brightness(0.9);
+    cursor: pointer; 
+}
+
+/*Classes utilisées par le js*/
+.section-hide{
+    opacity: 0;
+}
+
+.section-show{
+    opacity: 1;
+}
+
+.loop{
+    transform: rotate(-360deg);
+}
+
